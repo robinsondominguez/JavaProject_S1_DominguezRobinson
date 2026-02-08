@@ -1,9 +1,0 @@
-Vista\Main.class
-Modelo\Cliente.class
-Modelo\ItemVenta.class
-Controlador\GestionClientes.class
-Modelo\Celular$CategoriaGama.class
-Modelo\Venta.class
-Controlador\GestionCelulares.class
-Controlador\GestionVentas.class
-Modelo\Celular.class
