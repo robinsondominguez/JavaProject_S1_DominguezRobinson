@@ -5,6 +5,7 @@ public class Cliente {
     private String nombre;
     private long identificacion;
     private String correo;
+    private int telefono;
 
     public Cliente(int id, String nombre, long identificacion, String correo, int telefono) {
         this.id = id;
@@ -49,5 +50,4 @@ public class Cliente {
     public void setTelefono(int telefono) {
         this.telefono = telefono;
     }
-    private int telefono;
 }

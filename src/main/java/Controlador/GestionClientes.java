@@ -1,5 +1,7 @@
 package Controlador;
+import Modelo.Cliente;
 
-public class GestionClientes {
+public interface GestionClientes {
     
+    void registrarCliente(Cliente cli);
 }

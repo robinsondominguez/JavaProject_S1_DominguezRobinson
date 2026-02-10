@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    public int validacion(int minimo, int maximo, String mensaje) {
+    public static int Validacion(int minimo, int maximo, String mensaje) {
         int validacion = 0;
         try {
             System.out.println(mensaje);
@@ -18,9 +18,8 @@ public class Main {
         }
         return validacion;
     }
-    
+
     public static void main(String[] args) {
-        int op = 0;
         do {
             System.out.println("""
                            *************************
@@ -35,21 +34,24 @@ public class Main {
                            5. Salir
                            """);
 
-            op = new Scanner(System.in).nextInt();
-            if (op < 1 || op > 5) {
-                System.out.println("Error, Opcion no Valida");
-            } else {
-                switch (op) {
+            int validacion = Validacion(0, 6, "Error, fuera del rango permitido, por favor seleccione uno disponible");
+            boolean menu = false;
+
+            while (menu == true) {
+                switch (validacion) {
                     case 1:
                         MainCelulares mc = new MainCelulares();
-                        mc.mainCelulares();
+                        mc.menuCelular();
+                        break;
                     case 2:
-
+                        break;
                     case 3:
-
+                        break;
                     case 4:
-                }
+                        break;
+                }while (validacion != 5){
+                    menu = false;
+                }   
             }
-        } while (op != 5);
+        }
     }
-}
