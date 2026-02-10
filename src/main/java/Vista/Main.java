@@ -17,9 +17,11 @@ public class Main {
             System.out.println("Solo se aceptan numeros enteros");
         }
         return validacion;
+
     }
 
     public static void main(String[] args) {
+
         do {
             System.out.println("""
                            *************************
@@ -49,9 +51,11 @@ public class Main {
                         break;
                     case 4:
                         break;
-                }while (validacion != 5){
+                }
+                while (validacion != 5) {
                     menu = false;
-                }   
+                }
             }
         }
     }
+}
