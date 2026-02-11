@@ -15,13 +15,13 @@ public class GestionCelularesDAO implements GestionCelulares {
 
     @Override
     public void RegistrarCelular(Celular cel) {
-        String sql = "INSERT INTO celulares (marca, modelo, sistema, categoria, precio, stock) VALUES (?,?,?,?,?,?)";
+        String sql = "INSERT INTO celulares (marca, modelo, sistema_operativo, categoriaGama, precio, stock) VALUES (?,?,?,?,?,?)";
 
         try (Connection con = c.conectar()) {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, cel.getMarca());
             ps.setString(2, cel.getModelo());
-            ps.setString(3, cel.getSistema());
+            ps.setString(3, cel.getSistema_operativo());
             ps.setString(4, cel.getCategoriaGama());
             ps.setDouble(5, cel.getPrecio());
             ps.setInt(6, cel.getStock());
@@ -58,8 +58,7 @@ public class GestionCelularesDAO implements GestionCelulares {
     @Override
     public ArrayList<Celular> ListaCelulares() {
         ArrayList<Celular> Celulares = new ArrayList<>();
-        try (Connection con = c.conectar(); Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * from celulares")) {
+        try (Connection con = c.conectar(); Statement st = con.createStatement(); ResultSet rs = st.executeQuery("SELECT * from celulares")) {
             while (rs.next()) {
                 Celulares.add(new Celular(rs.getString(1), rs.getString(2), rs.getDouble(3), rs.getInt(4), rs.getString(6), rs.getString(7)));
             }
@@ -95,7 +94,7 @@ public class GestionCelularesDAO implements GestionCelulares {
                 cel.setId(rs.getInt("id"));
                 cel.setMarca(rs.getString("marca"));
                 cel.setModelo(rs.getString("modelo"));
-                cel.setSistema(rs.getString("sistema"));
+                cel.setSistema_operativo(rs.getString("sistema"));
                 cel.setCategoriaGama(rs.getString("categoria_gama"));
                 cel.setPrecio(rs.getDouble(6));
                 cel.setStock(rs.getInt(6));
@@ -105,5 +104,7 @@ public class GestionCelularesDAO implements GestionCelulares {
         }
         return cel;
     }
+
+    
 
 }

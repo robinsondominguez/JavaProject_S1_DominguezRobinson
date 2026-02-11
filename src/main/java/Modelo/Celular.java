@@ -7,21 +7,16 @@ public class Celular {
     private String modelo;
     private double precio;
     private int stock;
-    private String sistema;
+    private String sistema_operativo;
     private String categoriaGama;
-
-    public Celular(String marca, String modelo, double precio, int stock, String categoriaGama, String sistema) {
+    
+    public Celular(String marca, String modelo, double precio, int stock, String sistema_operativo, String categoriaGama) {
         this.marca = marca;
         this.modelo = modelo;
         this.precio = precio;
         this.stock = stock;
+        this.sistema_operativo = sistema_operativo;
         this.categoriaGama = categoriaGama;
-        this.sistema = sistema;
-
-    }
-    
-    public Celular(){
-        
     }
 
     public int getId() {
@@ -64,20 +59,24 @@ public class Celular {
         this.stock = stock;
     }
 
-    public String getSistema() {
-        return sistema;
+    public String getSistema_operativo() {
+        return sistema_operativo;
     }
 
-    public void setSistema(String sistema) {
-        this.sistema = sistema;
-    }
-
-    public void setCategoriaGama(String categoria) {
-        this.categoriaGama = categoria;
+    public void setSistema_operativo(String sistema_operativo) {
+        this.sistema_operativo = sistema_operativo;
     }
 
     public String getCategoriaGama() {
         return categoriaGama;
+    }
+
+    public void setCategoriaGama(String categoriaGama) {
+        this.categoriaGama = categoriaGama;
+    }
+    
+    public Celular(){
+        
     }
 
     @Override
@@ -91,6 +90,6 @@ public class Celular {
               Gama:       %s
               Stock:      %s
               
-              """.formatted(id, marca, modelo, precio, sistema, categoriaGama, stock);
+              """.formatted(id, marca, modelo, precio, sistema_operativo, categoriaGama, stock);
     }
 }

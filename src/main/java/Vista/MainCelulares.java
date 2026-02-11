@@ -5,34 +5,40 @@ import Modelo.Celular;
 import java.util.Scanner;
 
 public class MainCelulares {
-    
-    public static int Validacion(int minimo, int maximo, String mensaje) {
-        int validacion = 0;
-        try {
-            System.out.println(mensaje);
-            validacion = new Scanner(System.in).nextInt();
-            while (validacion < minimo || validacion > maximo) {
-                System.out.println("Opcion no valida");
-                validacion = new Scanner(System.in).nextInt();
-            }
-        } catch (Exception e) {
-            System.out.println("Solo se aceptan numeros enteros");
-        }
-        return validacion;
 
+    public static int Validacion(int minimo, int maximo, String mensaje) {
+        Scanner sc = new Scanner(System.in);
+        int numero = 0;
+        boolean continuar = true;
+
+        while (continuar) {
+            try {
+                System.out.print(mensaje);
+                numero = Integer.parseInt(sc.nextLine());
+                if (numero >= minimo && numero <= maximo) {
+                    continuar = false;
+                } else {
+                    System.out.println("Opcion fuera de rango " + minimo + "-" + maximo + ".");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Error: Solo se aceptan numeros enteros.");
+            }
+        }
+        return numero;
     }
+    
 
     public static int validarEntero(String mensaje) {
         Scanner sc = new Scanner(System.in);
         int numero = 0;
-        boolean esValido = false;
+        boolean valido = false;
 
-        while (!esValido) {
+        while (!valido) {
             try {
                 System.out.print(mensaje);
                 String entrada = sc.nextLine();
                 numero = Integer.parseInt(entrada);
-                esValido = true;
+                valido = true;
             } catch (NumberFormatException e) {
                 System.out.println("Error: Debes ingresar un número entero.");
             }
@@ -47,7 +53,7 @@ public class MainCelulares {
                 System.out.print(mensaje);
                 return Double.parseDouble(sc.nextLine());
             } catch (NumberFormatException e) {
-                System.out.println("❌ Error: Ingresa un número decimal válido (ej: 1500.99).");
+                System.out.println("Error: Ingresa un número valido.");
             }
         }
     }
@@ -75,7 +81,6 @@ public class MainCelulares {
         switch (validacion) {
 
             case 1 -> {
-                System.out.println("--- Registro de Nuevo Celular ---");
 
                 System.out.print("Marca: ");
                 String marca = new Scanner(System.in).nextLine();
@@ -102,17 +107,18 @@ public class MainCelulares {
             }
 
             case 2 -> {
-                gc.EliminarCelular(validacion);
-                break;
+                System.out.println("");
 
-                gc.ActualizarCelular(cel, id);
+
             }
 
-            case 4 ->
-                gc;
+            case 3 ->
+                System.out.println();
+                
 
-            case 5 ->
-                gc.RegistrarCelular;
+            case 4 ->{
+                }       
+
 
         }
 

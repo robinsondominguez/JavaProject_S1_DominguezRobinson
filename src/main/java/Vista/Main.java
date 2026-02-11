@@ -4,58 +4,70 @@ import java.util.Scanner;
 
 public class Main {
 
+    // Método de validación mejorado
     public static int Validacion(int minimo, int maximo, String mensaje) {
-        int validacion = 0;
-        try {
-            System.out.println(mensaje);
-            validacion = new Scanner(System.in).nextInt();
-            while (validacion < minimo || validacion > maximo) {
-                System.out.println("Opcion no valida");
-                validacion = new Scanner(System.in).nextInt();
-            }
-        } catch (Exception e) {
-            System.out.println("Solo se aceptan numeros enteros");
-        }
-        return validacion;
+        Scanner sc = new Scanner(System.in);
+        int numero = 0;
+        boolean continuar = true;
 
+        while (continuar) {
+            try {
+                System.out.print(mensaje);
+                numero = Integer.parseInt(sc.nextLine());
+                if (numero >= minimo && numero <= maximo) {
+                    continuar = false;
+                } else {
+                    System.out.println("Opcion fuera de rango " + minimo + "-" + maximo + ".");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Error: Solo se aceptan numeros enteros.");
+            }
+        }
+        return numero;
     }
 
     public static void main(String[] args) {
+        int opcion;
 
         do {
             System.out.println("""
-                           *************************
-                           Bienvenido a TecnoStore
-                           
-                           Por favor eliga una opcion:
-                           
-                           1. Gestionar Celulares
-                           2. Gestionar Clientes
-                           3. Gestionar Ventas
-                           4. Generar Reporte
-                           5. Salir
-                           """);
+                               *************************
+                               Bienvenido a TecnoStore
+                               
+                               Por favor elija una opcion:
+                               
+                               1. Gestionar Celulares
+                               2. Gestionar Clientes
+                               3. Gestionar Ventas
+                               4. Generar Reporte
+                               5. Salir
+                               """);
 
-            int validacion = Validacion(0, 6, "Error, fuera del rango permitido, por favor seleccione uno disponible");
-            boolean menu = false;
+            opcion = Validacion(1, 5, "Seleccione una opcion: ");
 
-            while (menu == true) {
-                switch (validacion) {
-                    case 1:
-                        MainCelulares mc = new MainCelulares();
-                        mc.menuCelular();
-                        break;
-                    case 2:
-                        break;
-                    case 3:
-                        break;
-                    case 4:
-                        break;
-                }
-                while (validacion != 5) {
-                    menu = false;
-                }
+            switch (opcion) {
+                case 1:
+                    MainCelulares mc = new MainCelulares();
+                    mc.menuCelular();
+                    System.out.println("Entrando a Gestionar Celulares...");
+                    break;
+                case 2:
+                    MainClientes mcl = new MainClientes();
+                    mcl.menuCliente();
+                    break;
+                case 3:
+                    System.out.println("Gestionar Ventas (En desarrollo)");
+                    break;
+                case 4:
+                    System.out.println("Generando Reportes...");
+                    break;
+                case 5:
+                    System.out.println("Saliendo del sistema... ¡Hasta luego!");
+                    break;
             }
-        }
+
+            System.out.println("\n-------------------------\n");
+
+        } while (opcion != 5);
     }
 }
