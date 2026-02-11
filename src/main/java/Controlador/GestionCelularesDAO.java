@@ -78,6 +78,9 @@ public class GestionCelularesDAO implements GestionCelulares {
             ps.setInt(1, cel.getStock());
             ps.setDouble(2, cel.getPrecio());
             ps.setInt(3, id);
+            
+            ps.executeUpdate();
+            
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

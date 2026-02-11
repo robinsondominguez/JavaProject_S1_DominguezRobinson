@@ -47,27 +47,32 @@ public class Main {
 
             switch (opcion) {
                 case 1:
+                    
                     MainCelulares mc = new MainCelulares();
                     mc.menuCelular();
-                    System.out.println("Entrando a Gestionar Celulares...");
+                    
                     break;
                 case 2:
+                    
                     MainClientes mcl = new MainClientes();
                     mcl.menuCliente();
+                    
                     break;
                 case 3:
+                    
                     System.out.println("Gestionar Ventas (En desarrollo)");
                     break;
+                    
                 case 4:
+                    
                     System.out.println("Generando Reportes...");
                     break;
+                    
                 case 5:
-                    System.out.println("Saliendo del sistema... ¡Hasta luego!");
+                    
+                    System.out.println("Adiosito");
                     break;
             }
-
-            System.out.println("\n-------------------------\n");
-
         } while (opcion != 5);
     }
 }
