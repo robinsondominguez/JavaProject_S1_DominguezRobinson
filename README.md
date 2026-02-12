@@ -106,7 +106,7 @@ Comenzaremos por el Vista. El Vista tiene 4 opciones:
 Cada opcion le mandara a otra Vista(**Sonidos de Confeti**), pero en estas vistas habran mas opciones mas especificas, Vamos a ir por unas de ellas.
 
 ### Gestionar Celulares
-![](https://drive.google.com/file/d/1GQ7tNgjc_84tIwk9gpyIlqontD1v43oy/view?usp=drive_link)
+![](./img/Gestion%20Celulares.png)
 
 Gestionar Celulares, tiene 5 opciones (Tecnicamente 4, la 5 obviamente debe estar si o si), las cuales cada una tiene un objetivo diferente.
 
@@ -123,7 +123,7 @@ Su funcion sera el de Actualizar un celular por su id, es como el anterior pero 
 Su funcion sera el de Lanzar una lista con todos los celulares existentes.
 
 ### Gestion Clientes
-![](https://drive.google.com/file/d/14cE918XwzsF487GB4bH_7MnAnTgISdx1/view?usp=drive_link)
+![](./img/Gestion%20Clientes.png)
 
 Gestion Clientes, tristemente solo tiene una opcion la cual es registrar un cliente y buscar.
 
@@ -134,7 +134,7 @@ Su funcion sera el de registrar un cliente, este pedira el nombre, identificacio
 Su funcion sera el de Buscar un Cliente en especifico, la forma en que lo hace es por su id.
 
 ### Gestionar Ventas
-![](https://drive.google.com/file/d/13G_8glUC6oz73wF-urClB3ph3MdDXfEt/view?usp=drive_link)
+![](./img/Gestion%20Ventas.png)
 
 Gestionar Ventas, tiene 3 opciones las cuales cada una tiene un objetivo diferente.
 
@@ -148,7 +148,7 @@ Lanza una lista con todas las ventas registradas, simplemente mostrara la person
 Practicamente se me colo esta funcion, es practicamente lo mismo que el de Ver Reporte, solo que lo olvide y se quedo hay.
 
 ### Gestion Reporte
-![](https://drive.google.com/file/d/1G-EZsLPrB9RlS47w4kq7dgi25uK4aH6L/view?usp=drive_link)
+![](./img/Gestion%20Reportes.png)
 
 Gestion Reporte, tiene unicamente 2 opciones las cuales cada una tiene un objetivo diferente.
 
