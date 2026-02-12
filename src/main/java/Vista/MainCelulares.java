@@ -29,14 +29,13 @@ public class MainCelulares {
     }
 
     public static int validarEntero(String mensaje) {
-        Scanner sc = new Scanner(System.in);
         int numero = 0;
         boolean valido = false;
 
         while (!valido) {
             try {
                 System.out.print(mensaje);
-                String entrada = sc.nextLine();
+                String entrada = new Scanner(System.in).nextLine();
                 numero = Integer.parseInt(entrada);
                 valido = true;
             } catch (NumberFormatException e) {
@@ -47,11 +46,10 @@ public class MainCelulares {
     }
 
     public static double validarDouble(String mensaje) {
-        Scanner sc = new Scanner(System.in);
         while (true) {
             try {
                 System.out.print(mensaje);
-                return Double.parseDouble(sc.nextLine());
+                return Double.parseDouble(new Scanner(System.in).nextLine());
             } catch (NumberFormatException e) {
                 System.out.println("Error: Ingresa un número valido.");
             }
@@ -72,11 +70,10 @@ public class MainCelulares {
                                2. eliminar celular
                                3. actualizar celular
                                4. listar celulares
-                               5. buscar celular
-                               6. Salir
-                               7. Opcion no requerida pero por que aja
+                               5. Salir
+
                                """);
-        int validacion = Validacion(1, 8, "Error, fuera del rango permitido, por favor seleccione uno disponible");
+        int validacion = Validacion(1, 5, "Error, fuera del rango permitido, por favor seleccione uno disponible");
 
         switch (validacion) {
 

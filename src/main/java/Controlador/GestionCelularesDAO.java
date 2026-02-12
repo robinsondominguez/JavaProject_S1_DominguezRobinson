@@ -57,16 +57,33 @@ public class GestionCelularesDAO implements GestionCelulares {
 
     @Override
     public ArrayList<Celular> ListaCelulares() {
-        ArrayList<Celular> Celulares = new ArrayList<>();
-        try (Connection con = c.conectar(); Statement st = con.createStatement(); ResultSet rs = st.executeQuery("SELECT * from celulares")) {
+
+        ArrayList<Celular> lista = new ArrayList<>();
+
+        String sql = "SELECT * FROM celulares";
+
+        try (Connection con = c.conectar(); PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+
             while (rs.next()) {
-                Celulares.add(new Celular(rs.getString(1), rs.getString(2), rs.getDouble(3), rs.getInt(4), rs.getString(6), rs.getString(7)));
+
+                Celular cel = new Celular();
+
+                cel.setId(rs.getInt("id"));
+                cel.setMarca(rs.getString("marca"));
+                cel.setModelo(rs.getString("modelo"));
+                cel.setSistema_operativo(rs.getString("sistema_operativo"));
+                cel.setCategoriaGama(rs.getString("categoriaGama"));
+                cel.setPrecio(rs.getDouble("precio"));
+                cel.setStock(rs.getInt("stock"));
+
+                lista.add(cel);
             }
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.out.println("Error al listar celulares: " + e.getMessage());
         }
-        return Celulares;
+
+        return lista;
     }
 
     @Override
@@ -78,9 +95,9 @@ public class GestionCelularesDAO implements GestionCelulares {
             ps.setInt(1, cel.getStock());
             ps.setDouble(2, cel.getPrecio());
             ps.setInt(3, id);
-            
+
             ps.executeUpdate();
-            
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -107,7 +124,5 @@ public class GestionCelularesDAO implements GestionCelulares {
         }
         return cel;
     }
-
-    
 
 }

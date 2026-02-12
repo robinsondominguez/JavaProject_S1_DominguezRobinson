@@ -1,0 +1,25 @@
+----------- REPORTE DE VENTAS -----------
+
+-----------------------------------------
+Venta ID: 1
+Cliente: Juan Pérez
+Fecha: 2026-02-11
+Total: $1.9992E7
+Detalles:
+   Celular: Samsung Galaxy S23
+   Cantidad: 1
+   Subtotal: $4200000.0
+
+   Celular: Samsung Galaxy S23
+   Cantidad: 1
+   Subtotal: $4200000.0
+
+   Celular: Samsung Galaxy S23
+   Cantidad: 1
+   Subtotal: $4200000.0
+
+   Celular: Samsung Galaxy S23
+   Cantidad: 1
+   Subtotal: $4200000.0
+
+=========== FIN DEL REPORTE ===========

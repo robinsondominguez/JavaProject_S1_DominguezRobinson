@@ -9,14 +9,14 @@ public class MainClientes {
     GestionClientesDAO gcdao = new GestionClientesDAO();
 
     public static int Validacion(int minimo, int maximo, String mensaje) {
-        Scanner sc = new Scanner(System.in);
+
         int numero = 0;
         boolean continuar = true;
 
         while (continuar) {
             try {
                 System.out.print(mensaje);
-                numero = Integer.parseInt(sc.nextLine());
+                numero = Integer.parseInt(new Scanner(System.in).nextLine());
                 if (numero >= minimo && numero <= maximo) {
                     continuar = false;
                 } else {
@@ -32,7 +32,7 @@ public class MainClientes {
     public void menuCliente() {
         System.out.println("""
                                ***********************
-                               Gestion de celulares
+                               Gestion de clientes
                                
                                Eliga una opcion:
                                

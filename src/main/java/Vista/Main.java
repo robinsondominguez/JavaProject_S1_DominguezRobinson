@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    // Método de validación mejorado
+
     public static int Validacion(int minimo, int maximo, String mensaje) {
         Scanner sc = new Scanner(System.in);
         int numero = 0;
@@ -60,12 +60,13 @@ public class Main {
                     break;
                 case 3:
                     
-                    System.out.println("Gestionar Ventas (En desarrollo)");
+                    MainVentas mv = new MainVentas();
+                    mv.menuVentas();
                     break;
                     
                 case 4:
-                    
-                    System.out.println("Generando Reportes...");
+                   MainReportes mr = new MainReportes();
+                   mr.menuReporte();
                     break;
                     
                 case 5:

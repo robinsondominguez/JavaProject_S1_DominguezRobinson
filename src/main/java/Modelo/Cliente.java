@@ -7,12 +7,21 @@ public class Cliente {
     private String correo;
     private int telefono;
 
+    public Cliente() {
+    }
+    
+   
+
     public Cliente(int id, String nombre, long identificacion, String correo, int telefono) {
         this.id = id;
         this.nombre = nombre;
         this.identificacion = identificacion;
         this.correo = correo;
         this.telefono = telefono;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getId() {
@@ -50,4 +59,6 @@ public class Cliente {
     public void setTelefono(int telefono) {
         this.telefono = telefono;
     }
+    
+    
 }

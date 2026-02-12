@@ -2,11 +2,13 @@ package Controlador;
 
 import Modelo.Cliente;
 import Modelo.Celular;
+import Modelo.Venta;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class GestionVentasDAO implements GestionVentas {
@@ -17,51 +19,101 @@ public class GestionVentasDAO implements GestionVentas {
     public double Iva(List<Celular> listaCelulares) {
         double subtotal = 0;
 
-        for (Celular c : listaCelulares) {
-            subtotal += c.getPrecio();
+        for (Celular cel : listaCelulares) {
+            subtotal += cel.getPrecio();
         }
         return subtotal * 1.19;
     }
 
     @Override
     public void registrarVenta(Cliente cli, List<Celular> listaCelulares) {
-        double totalConIva = Iva(listaCelulares);
 
-        try {
-            // 1. Conectar (ajusta los datos de tu BD)
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/tu_base_datos", "root", "");
+    try (Connection con = c.conectar()) {
 
-            String sqlVenta = "INSERT INTO ventas (id_cliente, fecha, total) VALUES (?, ?, ?)";
-            PreparedStatement psVenta = con.prepareStatement(sqlVenta);
+        double subtotal = 0;
 
-            psVenta.setInt(1, cli.getId());
-            psVenta.setDate(2, new java.sql.Date(System.currentTimeMillis()));
-            psVenta.setDouble(3, totalConIva);
+        String sqlCel = "SELECT precio, stock FROM celulares WHERE id = ?";
+        PreparedStatement psCel = con.prepareStatement(sqlCel);
 
-            psVenta.executeUpdate();
 
-            String sqlStock = "UPDATE celulares SET stock = stock - 1 WHERE id = ?";
-            PreparedStatement psStock = con.prepareStatement(sqlStock);
+        for (Celular cel : listaCelulares) {
 
-            for (Celular cel : listaCelulares) {
-                psStock.setInt(1, cel.getId());
-                psStock.executeUpdate();
+            psCel.setInt(1, cel.getId());
+            ResultSet rs = psCel.executeQuery();
+
+            if (rs.next()) {
+
+                int stock = rs.getInt("stock");
+
+                if (stock <= 0) {
+                    System.out.println("No hay stock disponible para el celular ID: " + cel.getId());
+                    return;
+                }
+
+                double precio = rs.getDouble("precio");
+                cel.setPrecio(precio);
+                subtotal += precio;
+
+            } else {
+                System.out.println("Celular con ID " + cel.getId() + " no existe.");
+                return;
             }
-
-            System.out.println("La venta de los celulares :" + listaCelulares.size() + "Fue realizada");
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
         }
 
+        double totalConIva = subtotal * 1.19;
+
+   
+        String sqlVenta = "INSERT INTO ventas (id_cliente, fecha, total) VALUES (?, CURDATE(), ?)";
+        PreparedStatement psVenta = con.prepareStatement(sqlVenta, PreparedStatement.RETURN_GENERATED_KEYS);
+
+        psVenta.setInt(1, cli.getId());
+        psVenta.setDouble(2, totalConIva);
+        psVenta.executeUpdate();
+
+        ResultSet rsVenta = psVenta.getGeneratedKeys();
+        int idVenta = 0;
+
+        if (rsVenta.next()) {
+            idVenta = rsVenta.getInt(1);
+        }
+
+ 
+        String sqlDetalle = "INSERT INTO detalle_ventas (id_venta, id_celular, cantidad, subtotal) VALUES (?, ?, ?, ?)";
+        PreparedStatement psDetalle = con.prepareStatement(sqlDetalle);
+
+        for (Celular cel : listaCelulares) {
+
+            psDetalle.setInt(1, idVenta);
+            psDetalle.setInt(2, cel.getId());
+            psDetalle.setInt(3, 1); // cantidad fija 1
+            psDetalle.setDouble(4, cel.getPrecio());
+
+            psDetalle.executeUpdate();
+        }
+
+
+        String sqlStock = "UPDATE celulares SET stock = stock - 1 WHERE id = ?";
+        PreparedStatement psStock = con.prepareStatement(sqlStock);
+
+        for (Celular cel : listaCelulares) {
+            psStock.setInt(1, cel.getId());
+            psStock.executeUpdate();
+        }
+
+        System.out.println("Venta registrada.");
+        System.out.println("Total con IVA: " + totalConIva);
+
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
     }
+}
+
 
     @Override
     public void reporte() {
         try {
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/tu_base", "root", "");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/TecnoStore", "root", "200715991");
 
-            // La consulta que une las tablas
             String sql = "SELECT v.id, c.nombre, v.fecha, v.total FROM ventas v JOIN clientes c ON v.id_cliente = c.id";
 
             PreparedStatement ps = con.prepareStatement(sql);
@@ -75,6 +127,63 @@ public class GestionVentasDAO implements GestionVentas {
                         + " | Total: $" + rs.getDouble("total"));
             }
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Venta> listarVentas() {
+        List<Venta> lista = new ArrayList<>();
+
+        try (Connection con = c.conectar()) {
+            String sql = "SELECT * FROM ventas";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Venta v = new Venta();
+                v.setId(rs.getInt("id"));
+                v.setTotal(rs.getDouble("total"));
+                lista.add(v);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return lista;
+    }
+
+    @Override
+    public void celularesStockBajo() {
+
+        List<Celular> lista = new ArrayList<>();
+
+        try (Connection con = c.conectar()) {
+
+            String sql = "SELECT * FROM celulares";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                Celular cel = new Celular();
+                cel.setId(rs.getInt("id"));
+                cel.setMarca(rs.getString("marca"));
+                cel.setModelo(rs.getString("modelo"));
+                cel.setStock(rs.getInt("stock"));
+
+                lista.add(cel);
+            }
+
+            lista.stream()
+                    .filter(cel -> cel.getStock() < 5)
+                    .forEach(cel -> System.out.println(
+                    "ID: " + cel.getId()
+                    + " | " + cel.getMarca()
+                    + " " + cel.getModelo()
+                    + " | Stock: " + cel.getStock()
+            ));
+
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
