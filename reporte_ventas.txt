@@ -3,12 +3,12 @@
 -----------------------------------------
 Venta ID: 1
 Cliente: Juan Pérez
-Fecha: 2026-02-11
-Total: $1.9992E7
+Fecha: 2026-02-17
+Total: $2.0349E7
 Detalles:
-   Celular: Samsung Galaxy S23
+   Celular: Apple iPhone 15
    Cantidad: 1
-   Subtotal: $4200000.0
+   Subtotal: $5200000.0
 
    Celular: Samsung Galaxy S23
    Cantidad: 1
@@ -18,8 +18,8 @@ Detalles:
    Cantidad: 1
    Subtotal: $4200000.0
 
-   Celular: Samsung Galaxy S23
+   Celular: Apple iPhone 13
    Cantidad: 1
-   Subtotal: $4200000.0
+   Subtotal: $3500000.0
 
 =========== FIN DEL REPORTE ===========

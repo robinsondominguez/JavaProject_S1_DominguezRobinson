@@ -48,6 +48,7 @@ public class MainReportes {
                                     + " | Marca: " + c.getMarca()
                                     + " | Modelo: " + c.getModelo()
                                     + " | Stock: " + c.getStock()
+                                    + " | Precio: " + c.getPrecio()
                             )
                     );
                     break;
