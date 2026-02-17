@@ -13,7 +13,7 @@ public class MainVentas {
 
     public static int Validacion(int minimo, int maximo, String mensaje) {
 
-        int numero = 0;
+        int numero = 1;
         boolean continuar = true;
 
         while (continuar) {

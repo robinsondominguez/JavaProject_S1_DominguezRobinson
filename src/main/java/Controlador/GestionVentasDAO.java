@@ -112,7 +112,7 @@ public class GestionVentasDAO implements GestionVentas {
     @Override
     public void reporte() {
         try {
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/TecnoStore", "root", "200715991");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/TecnoStore", "campus2023", "campus2023");
 
             String sql = "SELECT v.id, c.nombre, v.fecha, v.total FROM ventas v JOIN clientes c ON v.id_cliente = c.id";
 
@@ -170,6 +170,7 @@ public class GestionVentasDAO implements GestionVentas {
                 cel.setMarca(rs.getString("marca"));
                 cel.setModelo(rs.getString("modelo"));
                 cel.setStock(rs.getInt("stock"));
+                cel.setPrecio(rs.getDouble("precio"));
 
                 lista.add(cel);
             }
